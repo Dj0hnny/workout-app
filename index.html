@@ -1,0 +1,581 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Программа тренировок с чекбоксами</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.5; padding: 20px; max-width: 900px; margin: auto; }
+    h1, h2, h3 { color: #2c3e50; }
+    table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+    th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; }
+    th { background-color: #f4f4f4; }
+    .tip { background-color: #fff8e1; padding: 10px; border-left: 4px solid #ffc107; margin: 15px 0; }
+    .tracker th, .progress th { background-color: #e8f4fc; text-align: center; }
+    .tracker td, .progress td { text-align: center; height: 30px; }
+    .completed { background-color: #d4edda !important; }
+    .checkbox-col { width: 5%; text-align: center; padding: 0 !important; }
+    input[type="checkbox"] { transform: scale(1.3); margin: 0; cursor: pointer; }
+    .btn { 
+      padding: 5px 10px; 
+      background-color: #4a90e2; 
+      color: white; 
+      border: none; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      text-decoration: none;
+      display: inline-block;
+      margin: 2px;
+    }
+    .btn:hover { background-color: #357abD; }
+    .btn-red { background-color: #e74c3c; }
+    .btn-red:hover { background-color: #c0392b; }
+    .hiit-description { 
+      background-color: #e8f4fc; 
+      padding: 8px; 
+      border-radius: 4px; 
+      margin: 8px 0; 
+      font-size: 0.9em;
+    }
+    .hidden-url { display: none; }
+    .press-exercise { 
+      background-color: #e8f4fc; 
+      font-weight: bold; 
+    }
+    
+    /* Стили для мобильной версии */
+    .mobile-checklist {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 30px;
+      border: 1px dashed #ccc;
+    }
+    .mobile-checklist h3 {
+      margin-top: 0;
+      color: #e74c3c;
+    }
+    .mobile-day {
+      margin-bottom: 15px;
+    }
+    .mobile-exercise {
+      font-size: 0.95em;
+      margin: 4px 0;
+    }
+    @media print {
+      .mobile-checklist { display: none; }
+      input[type="checkbox"] { display: none; }
+      .checkbox-col { display: none; }
+      .btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ОСНОВНАЯ ПРОГРАММА -->
+<h1>📋 Программа тренировок для похудения + подкачки тела и рук</h1>
+<p><em>4 дня в неделю | Силовые + кардио | Акцент на руки и тело</em></p>
+
+<div class="tip">
+  💡 <strong>Как пользоваться:</strong><br>
+  1. Ставь галочку ✓ после выполнения упражнения — строка станет <span style="background-color:#d4edda;padding:2px 5px;border-radius:3px">светло-зелёной</span><br>
+  2. Нажимай на кнопку "смотреть видео" для просмотра техники выполнения
+</div>
+
+<div style="text-align: center; margin: 20px 0;">
+  <button class="btn btn-red" id="resetProgress">СБРОСИТЬ ПРОГРЕСС</button>
+</div>
+
+<h2>🔥 День 1: Нижняя часть тела + HIIT</h2>
+<table>
+  <tr>
+    <th class="checkbox-col">✓</th>
+    <th>Упражнение</th>
+    <th>Видео техники</th>
+    <th>Подходы × Повторения</th>
+  </tr>
+  <tr data-id="day1-ex1">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Приседания в тренажёре Смита</td>
+    <td><a href="https://vk.com/video-36048643_456239308" target="_blank" class="btn">смотреть видео</a></td>
+    <td>4 × 12–15</td>
+  </tr>
+  <tr data-id="day1-ex2">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Жим ногами (leg press)</td>
+    <td><a href="https://yandex.ru/video/preview/14236119693688068397" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 15</td>
+  </tr>
+  <tr data-id="day1-ex3">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Сгибание ног лёжа</td>
+    <td><a href="https://yandex.ru/video/preview/11994983378537938345" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 15</td>
+  </tr>
+  <tr data-id="day1-ex4">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Разгибание ног сидя</td>
+    <td><a href="https://yandex.ru/video/preview/337323774615152904" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 15</td>
+  </tr>
+  <tr data-id="day1-ex5">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Икры стоя</td>
+    <td><a href="https://yandex.ru/video/preview/12865400657748408351" target="_blank" class="btn">смотреть видео</a></td>
+    <td>4 × 20</td>
+  </tr>
+  <tr data-id="day1-ex6">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td><strong>HIIT-кардио</strong> (бег/велосипед)</td>
+    <td><a href="#" class="btn" onclick="alert('HIIT-кардио: 30 сек бег/велосипед на максимуме + 60 сек отдыха, повторить 8–10 раз')">подробнее</a></td>
+    <td>15–20 мин</td>
+  </tr>
+</table>
+<div class="hiit-description">
+  ⚡ <strong>HIIT-кардио:</strong> 30 сек бег/велосипед на максимуме + 60 сек отдыха, повторить 8–10 раз
+</div>
+
+<h2>💪 День 2: Грудь + Руки + Кардио</h2>
+<table>
+  <tr>
+    <th class="checkbox-col">✓</th>
+    <th>Упражнение</th>
+    <th>Видео техники</th>
+    <th>Подходы × Повторения</th>
+  </tr>
+  <tr data-id="day2-ex1">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Жим гантелей лёжа</td>
+    <td><a href="https://yandex.ru/video/preview/17655345245061602341" target="_blank" class="btn">смотреть видео</a></td>
+    <td>4 × 12</td>
+  </tr>
+  <tr data-id="day2-ex2">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Сведение рук в «бабочке»</td>
+    <td><a href="https://yandex.ru/video/preview/17892424122731827611" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 15</td>
+  </tr>
+  <tr data-id="day2-ex3">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Тяга вертикального блока к груди</td>
+    <td><a href="https://yandex.ru/video/preview/11973027155457047213" target="_blank" class="btn">смотреть видео</a></td>
+    <td>4 × 12</td>
+  </tr>
+  <tr data-id="day2-ex4">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Тяга горизонтального блока к поясу</td>
+    <td><a href="https://yandex.ru/video/preview/7070956550013480811" target="_blank" class="btn">смотреть видео</a></td>
+    <td>4 × 12</td>
+  </tr>
+  <tr data-id="day2-ex5">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Сгибание рук с EZ-гантелью (бицепс)</td>
+    <td><a href="https://yandex.ru/video/preview/7579693927537435808" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 12–15</td>
+  </tr>
+  <tr data-id="day2-ex6">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Французский жим (трицепс)</td>
+    <td><a href="https://yandex.ru/video/preview/9646194666513546296" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 12–15</td>
+  </tr>
+  <tr data-id="day2-ex7">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Молотки (бицепс/плечи)</td>
+    <td><a href="https://yandex.ru/video/preview/6643033234055512731" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 12</td>
+  </tr>
+  <tr data-id="day2-ex8">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td><strong>Умеренное кардио</strong></td>
+    <td><a href="#" class="btn" onclick="alert('Умеренное кардио: 20-25 минут бега, велосипеда или эллипса в комфортном темпе')">подробнее</a></td>
+    <td>20–25 мин</td>
+  </tr>
+  <tr data-id="day2-ex9" class="press-exercise">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td><strong>пресс "Березка"</strong></td>
+    <td><a href="https://yandex.ru/video/preview/12302920762776380168" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 30 сек</td>
+  </tr>
+  <tr data-id="day2-ex10" class="press-exercise">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td><strong>Скручивания на наклонной скамье</strong> (только после полного выполнения основных упражнений)</td>
+    <td><a href="https://yandex.ru/video/preview/15651323201237097786" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 15–20</td>
+  </tr>
+</table>
+
+<h2>🧘 День 3: Отдых или лёгкая активность</h2>
+<table>
+  <tr>
+    <th class="checkbox-col">✓</th>
+    <th>Активность</th>
+    <th>Рекомендация</th>
+    <th>Рекомендация</th>
+  </tr>
+  <tr data-id="day3-ex1">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Лёгкая растяжка / йога</td>
+    <td>20–30 мин ходьбы или растяжки</td>
+    <td>20–30 мин</td>
+  </tr>
+  <tr data-id="day3-ex2" class="press-exercise">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td><strong>пресс "Березка"</strong></td>
+    <td><a href="https://yandex.ru/video/preview/12302920762776380168" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 30 сек</td>
+  </tr>
+  <tr data-id="day3-ex3" class="press-exercise">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td><strong>Скручивания на наклонной скамье</strong> (только после полного выполнения основных упражнений)</td>
+    <td><a href="https://yandex.ru/video/preview/15651323201237097786" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 15–20</td>
+  </tr>
+</table>
+
+<h2>🔁 День 4: Full Body + HIIT</h2>
+<table>
+  <tr>
+    <th class="checkbox-col">✓</th>
+    <th>Упражнение</th>
+    <th>Видео техники</th>
+    <th>Подходы × Повторения</th>
+  </tr>
+  <tr data-id="day4-ex1">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Гиперэкстензия</td>
+    <td><a href="https://yandex.ru/video/preview/4177858562571281900" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 круга × 15</td>
+  </tr>
+  <tr data-id="day4-ex2">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Жим от груди в тренажёре</td>
+    <td><a href="https://yandex.ru/video/preview/15612863901376570491" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 круга × 12</td>
+  </tr>
+  <tr data-id="day4-ex3">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Обратная тяга (в блоке)</td>
+    <td><a href="https://yandex.ru/video/preview/14566048696429931355" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 круга × 12</td>
+  </tr>
+  <tr data-id="day4-ex4">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Подъёмы на бицепс в кроссовере</td>
+    <td><a href="https://yandex.ru/video/preview/16302578580863593234" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 круга × 15</td>
+  </tr>
+  <tr data-id="day4-ex5">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Разгибание трицепса в блоке</td>
+    <td><a href="https://yandex.ru/video/preview/5437405273840927394" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 круга × 15</td>
+  </tr>
+  <tr data-id="day4-ex6">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td><strong>HIIT-кардио</strong></td>
+    <td><a href="#" class="btn" onclick="alert('HIIT-кардио: 30 сек бег/велосипед на максимуме + 60 сек отдыха, повторить 8–10 раз')">подробнее</a></td>
+    <td>15–20 мин</td>
+  </tr>
+</table>
+<div class="hiit-description">
+  ⚡ <strong>HIIT-кардио:</strong> 30 сек бег/велосипед на максимуме + 60 сек отдыха, повторить 8–10 раз
+</div>
+<p><em>⚠️ Выполняй упражнения подряд без отдыха → отдых 1–2 мин между кругами.</em></p>
+
+<h2>🦾 День 5: Спина + Плечи + Руки</h2>
+<table>
+  <tr>
+    <th class="checkbox-col">✓</th>
+    <th>Упражнение</th>
+    <th>Видео техники</th>
+    <th>Подходы × Повторения</th>
+  </tr>
+  <tr data-id="day5-ex1">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Тяга штанги в наклоне</td>
+    <td><a href="https://yandex.ru/video/preview/12229346315746262026" target="_blank" class="btn">смотреть видео</a></td>
+    <td>4 × 12</td>
+  </tr>
+  <tr data-id="day5-ex2">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Тяга вертикального блока (вместо подтягиваний)</td>
+    <td><a href="https://yandex.ru/video/preview/1273120741063136966" target="_blank" class="btn">смотреть видео</a></td>
+    <td>4 × 10–12</td>
+  </tr>
+  <tr data-id="day5-ex3">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Жим штанги над головой</td>
+    <td><a href="https://yandex.ru/video/preview/13009330836822564228" target="_blank" class="btn">смотреть видео</a></td>
+    <td>4 × 10–12</td>
+  </tr>
+  <tr data-id="day5-ex4">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Махи гантелями в стороны</td>
+    <td><a href="https://yandex.ru/video/preview/15057155136586646476" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 15</td>
+  </tr>
+  <tr data-id="day5-ex5">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Обратные махи (задние дельты)</td>
+    <td><a href="https://yandex.ru/video/preview/13061815677291077959" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 15</td>
+  </tr>
+  <tr data-id="day5-ex6">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Концентрированные сгибания (бицепс)</td>
+    <td><a href="https://yandex.ru/video/preview/647664815107125779" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 12</td>
+  </tr>
+  <tr data-id="day5-ex7">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td>Разгибание трицепса с канатом</td>
+    <td><a href="https://yandex.ru/video/preview/1670439224147109087" target="_blank" class="btn">смотреть видео</a></td>
+    <td>3 × 15</td>
+  </tr>
+  <tr data-id="day5-ex8">
+    <td class="checkbox-col"><input type="checkbox"></td>
+    <td><strong>Умеренное кардио</strong></td>
+    <td><a href="#" class="btn" onclick="alert('Умеренное кардио: 20 минут бега, велосипеда или эллипса в комфортном темпе')">подробнее</a></td>
+    <td>20 мин</td>
+  </tr>
+</table>
+
+<h2>📅 Дни 6–7: Полный отдых или прогулка</h2>
+<p>Отдых критически важен для восстановления и жиросжигания!</p>
+
+<!-- ТАБЛИЦА УЧЁТА ТРЕНИРОВОК -->
+<h2>✅ Учёт тренировок (4 недели)</h2>
+<table class="tracker">
+  <tr>
+    <th>Неделя</th>
+    <th>День 1</th>
+    <th>День 2</th>
+    <th>День 3</th>
+    <th>День 4</th>
+    <th>День 5</th>
+  </tr>
+  <tr data-week="1">
+    <td><strong>Неделя 1</strong></td>
+    <td><input type="checkbox" class="week-check" data-day="1"></td>
+    <td><input type="checkbox" class="week-check" data-day="2"></td>
+    <td><input type="checkbox" class="week-check" data-day="3"></td>
+    <td><input type="checkbox" class="week-check" data-day="4"></td>
+    <td><input type="checkbox" class="week-check" data-day="5"></td>
+  </tr>
+  <tr data-week="2">
+    <td><strong>Неделя 2</strong></td>
+    <td><input type="checkbox" class="week-check" data-day="1"></td>
+    <td><input type="checkbox" class="week-check" data-day="2"></td>
+    <td><input type="checkbox" class="week-check" data-day="3"></td>
+    <td><input type="checkbox" class="week-check" data-day="4"></td>
+    <td><input type="checkbox" class="week-check" data-day="5"></td>
+  </tr>
+  <tr data-week="3">
+    <td><strong>Неделя 3</strong></td>
+    <td><input type="checkbox" class="week-check" data-day="1"></td>
+    <td><input type="checkbox" class="week-check" data-day="2"></td>
+    <td><input type="checkbox" class="week-check" data-day="3"></td>
+    <td><input type="checkbox" class="week-check" data-day="4"></td>
+    <td><input type="checkbox" class="week-check" data-day="5"></td>
+  </tr>
+  <tr data-week="4">
+    <td><strong>Неделя 4</strong></td>
+    <td><input type="checkbox" class="week-check" data-day="1"></td>
+    <td><input type="checkbox" class="week-check" data-day="2"></td>
+    <td><input type="checkbox" class="week-check" data-day="3"></td>
+    <td><input type="checkbox" class="week-check" data-day="4"></td>
+    <td><input type="checkbox" class="week-check" data-day="5"></td>
+  </tr>
+</table>
+
+<!-- ГРАФИК ВЕСА И ОБЪЁМОВ -->
+<h2>📊 Прогресс: вес и объёмы (заполнять раз в неделю)</h2>
+<table class="progress">
+  <tr>
+    <th>Неделя</th>
+    <th>Дата</th>
+    <th>Вес (кг)</th>
+    <th>Грудь (см)</th>
+    <th>Талия (см)</th>
+    <th>Бёдра (см)</th>
+    <th>Бицепс (см)</th>
+  </tr>
+  <tr><td>1</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+  <tr><td>2</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+  <tr><td>3</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+  <tr><td>4</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+  <tr><td>5+</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+</table>
+<p style="font-size: 0.9em; color: #666;">
+  📏 Измеряй утром, натощак, в один и тот же день недели (например, каждое воскресенье).
+</p>
+
+<!-- МИНИ-ЧЕК-ЛИСТ ДЛЯ ТЕЛЕФОНА -->
+<div class="mobile-checklist">
+  <h3>📱 Мини-чек-лист для телефона (сохрани в заметки!)</h3>
+
+  <div class="mobile-day">
+    <strong>День 1: Ноги + HIIT</strong><br>
+    <div class="mobile-exercise">✓ Приседания в Смите — 4×12–15</div>
+    <div class="mobile-exercise">✓ Жим ногами — 3×15</div>
+    <div class="mobile-exercise">✓ Сгибание/разгибание ног — по 3×15</div>
+    <div class="mobile-exercise">✓ Икры — 4×20</div>
+    <div class="mobile-exercise">✓ HIIT — 15–20 мин (30 сек максимум + 60 сек отдыха)</div>
+  </div>
+
+  <div class="mobile-day">
+    <strong>День 2: Грудь + Руки</strong><br>
+    <div class="mobile-exercise">✓ Жим гантелей — 4×12</div>
+    <div class="mobile-exercise">✓ Бабочка — 3×15</div>
+    <div class="mobile-exercise">✓ Верх/низ блока — по 4×12</div>
+    <div class="mobile-exercise">✓ Бицепс (EZ + молотки) — 3×12–15</div>
+    <div class="mobile-exercise">✓ Трицепс (французский) — 3×12–15</div>
+    <div class="mobile-exercise">✓ Кардио — 20–25 мин</div>
+    <div class="mobile-exercise">✓ пресс "Березка" — 3×30 сек</div>
+    <div class="mobile-exercise">✓ Скручивания на наклонной скамье — 3×15–20</div>
+  </div>
+
+  <div class="mobile-day">
+    <strong>День 3: Отдых / растяжка + пресс</strong><br>
+    <div class="mobile-exercise">✓ Лёгкая растяжка / йога — 20–30 мин</div>
+    <div class="mobile-exercise">✓ пресс "Березка" — 3×30 сек</div>
+    <div class="mobile-exercise">✓ Скручивания на наклонной скамье — 3×15–20</div>
+  </div>
+
+  <div class="mobile-day">
+    <strong>День 4: Full Body + HIIT</strong><br>
+    <div class="mobile-exercise">✓ Гиперэкстензия — 3×15</div>
+    <div class="mobile-exercise">✓ Жим от груди — 3×12</div>
+    <div class="mobile-exercise">✓ Обратная тяга — 3×12</div>
+    <div class="mobile-exercise">✓ Бицепс/трицепс в блоке — по 3×15</div>
+    <div class="mobile-exercise">✓ HIIT — 15–20 мин (30 сек максимум + 60 сек отдыха)</div>
+  </div>
+
+  <div class="mobile-day">
+    <strong>День 5: Спина + Плечи + Руки</strong><br>
+    <div class="mobile-exercise">✓ Тяга штанги — 4×12</div>
+    <div class="mobile-exercise">✓ Вертикальная тяга — 4×10–12</div>
+    <div class="mobile-exercise">✓ Жим над головой — 4×10–12</div>
+    <div class="mobile-exercise">✓ Махи (в стороны + обратные) — по 3×15</div>
+    <div class="mobile-exercise">✓ Бицепс/трицепс — по 3×12–15</div>
+    <div class="mobile-exercise">✓ Кардио — 20 мин</div>
+  </div>
+</div>
+
+<hr>
+<p style="text-align: center; color: #777; font-size: 0.9em;">
+  Программа составлена для эффективного похудения и укрепления мышц. Удачи в зале!
+</p>
+
+<script>
+  // Инициализация чекбоксов для упражнений
+  document.querySelectorAll('table tr[data-id]').forEach(row => {
+    const checkbox = row.querySelector('input[type="checkbox"]');
+    const id = row.getAttribute('data-id');
+    
+    // Загрузка сохранённого состояния
+    const saved = localStorage.getItem(`exercise_${id}`);
+    if (saved === 'true') {
+      checkbox.checked = true;
+      row.classList.add('completed');
+    }
+    
+    // Обработчик клика
+    checkbox.addEventListener('change', function() {
+      if (this.checked) {
+        row.classList.add('completed');
+        localStorage.setItem(`exercise_${id}`, 'true');
+      } else {
+        row.classList.remove('completed');
+        localStorage.setItem(`exercise_${id}`, 'false');
+      }
+    });
+  });
+
+  // Инициализация чекбоксов для недель
+  document.querySelectorAll('.week-check').forEach(checkbox => {
+    const week = checkbox.closest('tr').getAttribute('data-week');
+    const day = checkbox.getAttribute('data-day');
+    const key = `week_${week}_day_${day}`;
+    
+    // Загрузка сохранённого состояния
+    const saved = localStorage.getItem(key);
+    if (saved === 'true') {
+      checkbox.checked = true;
+      checkbox.closest('td').style.backgroundColor = '#d4edda';
+    }
+    
+    // Обработчик клика
+    checkbox.addEventListener('change', function() {
+      if (this.checked) {
+        this.closest('td').style.backgroundColor = '#d4edda';
+        localStorage.setItem(key, 'true');
+      } else {
+        this.closest('td').style.backgroundColor = 'transparent';
+        localStorage.setItem(key, 'false');
+      }
+    });
+  });
+
+  // Сохранение данных графика веса
+  document.querySelectorAll('.progress td[contenteditable="true"]').forEach(cell => {
+    const rowIndex = cell.parentElement.rowIndex;
+    const cellIndex = cell.cellIndex;
+    const key = `progress_${rowIndex}_${cellIndex}`;
+    
+    // Загрузка сохранённых данных
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      cell.textContent = saved;
+    }
+    
+    // Автоматическое сохранение при изменении
+    cell.addEventListener('blur', function() {
+      localStorage.setItem(key, this.textContent);
+    });
+  });
+
+  // Кнопка сброса прогресса
+  document.getElementById('resetProgress').addEventListener('click', function() {
+    if (confirm('Вы уверены, что хотите сбросить весь прогресс? Это действие нельзя отменить.')) {
+      // Очистка localStorage
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('exercise_') || 
+            key.startsWith('week_') || 
+            key.startsWith('progress_')) {
+          localStorage.removeItem(key);
+        }
+      });
+      
+      // Сброс чекбоксов упражнений
+      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+      });
+      
+      // Сброс выделения строк
+      document.querySelectorAll('tr.completed').forEach(row => {
+        row.classList.remove('completed');
+      });
+      
+      // Сброс фона ячеек недель
+      document.querySelectorAll('.tracker td').forEach(cell => {
+        if (cell.style.backgroundColor) {
+          cell.style.backgroundColor = 'transparent';
+        }
+      });
+      
+      // Очистка таблицы прогресса
+      document.querySelectorAll('.progress td[contenteditable="true"]').forEach(cell => {
+        cell.textContent = '';
+      });
+      
+      alert('Прогресс успешно сброшен!');
+    }
+  });
+</script>
+
+</body>
+</html>
+```
