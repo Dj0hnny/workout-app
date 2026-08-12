@@ -1,0 +1,21 @@
+{
+  "name": "workout-app",
+  "version": "1.0.0",
+  "description": "Программа тренировок для похудения и подкачки тела",
+  "main": "index.html",
+  "scripts": {
+    "cap:init": "cap init \"Тренировки\" com.workout.app --web-dir=www",
+    "cap:add:android": "cap add android",
+    "cap:sync": "cap sync android",
+    "build": "mkdir -p www && cp index.html manifest.json www/",
+    "prepare": "npm run build"
+  },
+  "keywords": ["fitness", "workout", "android", "capacitor"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/cli": "^7.6.8",
+    "@capacitor/core": "^8.5.0"
+  }
+}
